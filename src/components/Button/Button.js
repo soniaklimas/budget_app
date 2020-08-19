@@ -1,10 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { InlineButton, RegularButton } from "./Button.css";
 
-function Button({ type, children, ...props }) {
+function Button({ variant, children, ...props }) {
+  //nie może być 'type' bo jest zarezerwowany przez html
+  // wyciągam "to" z ...props
+  const { to } = props;
   // by komponent był tym, co zwraca funkcja w zależności od case switcha, należy funkjcę od razu wywołać = owrapować w nawiasy i wywołać ()
   const Component = (() => {
-    switch (type) {
+    switch (variant) {
       case "inline":
         return InlineButton;
       case "regular":
@@ -14,10 +18,12 @@ function Button({ type, children, ...props }) {
     }
   })();
 
-  return (
-    <div>
+  return to ? (
+    <Link {...props}>
       <Component {...props}>{children}</Component>
-    </div>
+    </Link>
+  ) : (
+    <Component {...props}>{children}</Component>
   );
 }
 
