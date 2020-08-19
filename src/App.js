@@ -5,15 +5,14 @@ import theme from "./utilis/theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Navigation, Wrapper } from "./components"; // odnoszę się do index.js w components
+import { Navigation, Wrapper, LoadingIndicator } from "./components"; // odnoszę się do index.js w components
 
 function App() {
   // i18n - zawiera funkcję ChangeLanguage, którą możemy wykorzystać do zmiany języka
   const { i18n } = useTranslation();
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <GlobalStyle />
-
       <Router>
         <Navigation
           items={[
@@ -36,15 +35,17 @@ function App() {
           </Switch>
         </Wrapper>
       </Router>
-    </ThemeProvider>
+    </>
   );
 }
 
 function RootApp() {
   return (
-    <React.Suspense fallback="Loading..">
-      <App />
-    </React.Suspense>
+    <ThemeProvider theme={theme}>
+      <React.Suspense fallback={<LoadingIndicator />}>
+        <App />
+      </React.Suspense>
+    </ThemeProvider>
   );
 }
 
