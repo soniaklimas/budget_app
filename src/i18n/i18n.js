@@ -12,9 +12,9 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    defaultLanguage: "en",
-    otherLanguages: ["pl"],
-    fallbackLng: "en",
+    defaultLanguage: "en-US",
+    otherLanguages: ["pl-PL"],
+    fallbackLng: "en-US",
     debug: true,
     saveMissing: true,
 

@@ -8,7 +8,8 @@ import { useTranslation } from "react-i18next";
 import { Navigation, Wrapper } from "./components"; // odnoszę się do index.js w components
 
 function App() {
-  const { t, i18n } = useTranslation();
+  // i18n - zawiera funkcję ChangeLanguage, którą możemy wykorzystać do zmiany języka
+  const { i18n } = useTranslation();
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -16,13 +17,13 @@ function App() {
       <Router>
         <Navigation
           items={[
-            { content: t("Homepage"), to: "./" },
-            { content: t("Budget"), to: "./budget" },
+            { content: "Homepage", to: "./" },
+            { content: "Budget", to: "./budget" },
           ]}
           RightElement={
             <div>
-              <button>pl</button>
-              <button>en</button>
+              <button onClick={() => i18n.changeLanguage("pl-PL")}>pl</button>
+              <button onClick={() => i18n.changeLanguage("en")}>en</button>
             </div>
           }
         />
