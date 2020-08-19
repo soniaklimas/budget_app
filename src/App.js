@@ -5,7 +5,7 @@ import theme from "./utilis/theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Navigation, Wrapper, LoadingIndicator } from "./components"; // odnoszę się do index.js w components
+import { Navigation, Wrapper, LoadingIndicator, Button } from "./components"; // odnoszę się do index.js w components
 
 function App() {
   // i18n - zawiera funkcję ChangeLanguage, którą możemy wykorzystać do zmiany języka
@@ -21,8 +21,15 @@ function App() {
           ]}
           RightElement={
             <div>
-              <button onClick={() => i18n.changeLanguage("pl-PL")}>pl</button>
-              <button onClick={() => i18n.changeLanguage("en")}>en</button>
+              <Button
+                type="regular"
+                onClick={() => i18n.changeLanguage("pl-PL")}
+              >
+                pl
+              </Button>
+              <Button type="regular" onClick={() => i18n.changeLanguage("en")}>
+                en
+              </Button>
             </div>
           }
         />
