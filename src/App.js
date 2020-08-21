@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GlobalStyle from "./index.css";
 import { ThemeProvider } from "styled-components";
 import theme from "./utilis/theme";
@@ -10,9 +10,13 @@ import { fetchBudget } from "data/actions/budget.actions";
 
 import { Navigation, Wrapper, LoadingIndicator, Button } from "./components"; // odnoszę się do index.js w components
 
-function App(budget, fetchBudget) {
-  fetchBudget(1);
-  console.log("budegt", budget);
+function App({ budget, fetchBudget }) {
+  useEffect(() => {
+    fetchBudget(1);
+  }, [fetchBudget]);
+
+  console.log(budget);
+
   // i18n - zawiera funkcję ChangeLanguage, którą możemy wykorzystać do zmiany języka
   const { i18n } = useTranslation();
   return (
