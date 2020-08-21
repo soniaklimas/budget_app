@@ -6,14 +6,18 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 // The connect() function connects a React component to a Redux store.
 import { connect } from "react-redux";
-import { fetchBudget } from "data/actions/budget.actions";
+import {
+  fetchBudget,
+  fetchBudgetedCategories,
+} from "data/actions/budget.actions";
 
 import { Navigation, Wrapper, LoadingIndicator, Button } from "./components"; // odnoszę się do index.js w components
 
-function App({ budget, fetchBudget }) {
+function App({ budget, fetchBudget, fetchBudgetedCategories }) {
   useEffect(() => {
     fetchBudget(1);
-  }, [fetchBudget]);
+    fetchBudgetedCategories(1);
+  }, [fetchBudget, fetchBudgetedCategories]);
 
   console.log(budget);
 
@@ -68,6 +72,7 @@ const ConnectedApp = connect(
   },
   {
     fetchBudget,
+    fetchBudgetedCategories,
   }
 )(App);
 

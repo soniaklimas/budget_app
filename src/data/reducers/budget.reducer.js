@@ -6,12 +6,15 @@ import {
   BUDGET_GET_SUCCESS,
   BUDGET_GET_FAILURE,
   LOADING_STATES,
+  BUDGETED_CATEGORIES_GET,
+  BUDGETED_CATEGORIES_GET_REQUEST,
+  BUDGETED_CATEGORIES_GET_SUCCESS,
+  BUDGETED_CATEGORIES_GET_FAILURE,
 } from "data/constants";
 
 const initialState = {
   loadingState: {
     // obiekt ładowania stanów w reducerze
-    BUDGET_GET_REQUEST: true,
   },
   budget: {},
   budgetedCategories: [],
@@ -33,7 +36,7 @@ function budget(state = initialState, action) {
       delete newLoadingState.BUDGET_GET_REQUEST;
       return {
         ...state,
-        budget: {},
+        budget: [],
         loadingState: newLoadingState,
       };
 
@@ -46,6 +49,32 @@ function budget(state = initialState, action) {
       };
     default:
       return state;
+
+    case BUDGETED_CATEGORIES_GET_REQUEST:
+      return {
+        ...state,
+        loadingState: {
+          ...state.loadingState,
+          [action.type]: LOADING_STATES.LOADING,
+        },
+      };
+    case BUDGETED_CATEGORIES_GET_FAILURE:
+      delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST;
+
+      return {
+        ...state,
+        budgetedCategories: [],
+        loadingState: newLoadingState,
+      };
+
+    case BUDGETED_CATEGORIES_GET_SUCCESS:
+      delete newLoadingState.BUDGETED_CATEGORIES_GET_REQUEST;
+
+      return {
+        ...state,
+        budgetedCategories: action.payload,
+        loadingState: newLoadingState,
+      };
   }
 }
 
