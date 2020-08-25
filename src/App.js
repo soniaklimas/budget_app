@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import GlobalStyle from "./index.css";
 import { ThemeProvider } from "styled-components";
 import theme from "./utilis/theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 // The connect() function connects a React component to a Redux store.
-import { connect } from "react-redux";
-import {
-  fetchBudget,
-  fetchBudgetedCategories,
-} from "data/actions/budget.actions";
+
+
 
 import { Navigation, Wrapper, LoadingIndicator, Button } from "./components"; // odnoszę się do index.js w components
+import Budget from "pages/Budget";
 
 function App({ budget, fetchBudget, fetchBudgetedCategories }) {
-  useEffect(() => {
-    fetchBudget(1);
-    fetchBudgetedCategories(1);
-  }, [fetchBudget, fetchBudgetedCategories]);
-
   console.log(budget);
 
   // i18n - zawiera funkcję ChangeLanguage, którą możemy wykorzystać do zmiany języka
@@ -54,7 +47,9 @@ function App({ budget, fetchBudget, fetchBudgetedCategories }) {
             <Route exact path="/">
               Homepage
             </Route>
-            <Route path="/budget">Budget</Route>
+            <Route path="/budget">
+              <Budget />
+            </Route>
           </Switch>
         </Wrapper>
       </Router>
@@ -62,25 +57,11 @@ function App({ budget, fetchBudget, fetchBudgetedCategories }) {
   );
 }
 
-// I arg - funkcja, kt pobiera dane ze store i zwraca obiekt, kt zostanie przekazany do propsów komponentu
-// II arg - funkcja lub obiekt, z listą akcji, kt będą zdispatchowane
-const ConnectedApp = connect(
-  (state) => {
-    return {
-      budget: state.budget.budget,
-    };
-  },
-  {
-    fetchBudget,
-    fetchBudgetedCategories,
-  }
-)(App);
-
 function RootApp() {
   return (
     <ThemeProvider theme={theme}>
       <React.Suspense fallback={<LoadingIndicator />}>
-        <ConnectedApp />
+        <App />
       </React.Suspense>
     </ThemeProvider>
   );
